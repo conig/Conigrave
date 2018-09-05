@@ -4,14 +4,14 @@
 \alias{find_similar}
 \title{find_similar}
 \usage{
-find_similar(x, y, threshold = 4)
+find_similar(x, y, percent = 50)
 }
 \arguments{
 \item{x}{a vector of strings.}
 
 \item{y}{a vector of strings. Strings will be returned from y which are similar to those in x}
 
-\item{threshold}{a numeric. Strings in y will be returned if they are less than this distance away from x}
+\item{percent}{a numeric. Strings in y will be returned if they are at least this percent similar. Defaults to 10%.}
 }
 \value{
 a vector containing strings from y, which are similar to those in x.
