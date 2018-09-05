@@ -9,7 +9,7 @@
 #' @importFrom stringdist stringdist
 #' @importFrom magrittr %>%
 
-find_similar = function(x, y, percent = 10){
+find_similar = function(x, y, percent = 50){
   results = lapply(x, function(i) {
     threshold = nchar(i)*(percent/100)
     if(threshold<1){
