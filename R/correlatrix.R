@@ -313,9 +313,13 @@
     }
 
     if (apa) {
+      rownames = rownames(matrix)
+      colnames = colnames(matrix)
       matrix = apply(matrix, 2, function(x)
         sub('^(-)?0[.]', '\\1.', x)) %>%
         data.frame()
+      rownames(matrix) = rownames
+      colnames(matrix) = colnames
     }
     
     #add in describe column.
@@ -323,14 +327,17 @@
       if (identical(describe, T)) {
         describe = list(
           "M" = function(x)
-            mean(x, na.rm = T),
+            mean(x, na.rm = TRUE),
           "SD" = function(x)
-            sd(x, na.rm = T)
+            sd(x, na.rm = TRUE)
         )
       }
+      
+      df = data.frame(data)
+      y = make.names(y)
       for (i in seq_along(describe)) {
         matrix[[names(describe)[i]]] = lapply(y, function(x)
-          describe[[i]](data[, x]) %>% round(round)) %>%
+          describe[[i]](df[, x]) %>% round(round)) %>%
           unlist()
       }
       
