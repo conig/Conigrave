@@ -31,7 +31,7 @@
 
 #TODO add n.matrix to getcor for partial correlations
 
-ctrx <- correlatrix <-
+correlatrix <- ctrx <-
         function(data,
                  x = NULL,
                  y = NULL,
