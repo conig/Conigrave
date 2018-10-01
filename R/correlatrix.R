@@ -1,7 +1,7 @@
 #' Correlatrix
 #'
 #' Takes in a data.frame or imputationList, a vector of variable names and produces a correlation matrix with customizable significance stars.
-#' @aliases ctrx
+#' @aliases correlatrix
 #' @param data a data.frame or imputationList.
 #' @param x a vector of variable names to correlate (optional).
 #' @param y a vector of column names for the creation of asymmetric correlation matrices.
@@ -34,7 +34,7 @@
 
 #TODO add n.matrix to getcor for partial correlations
 
-correlatrix <- ctrx <-
+ ctrx <- correlatrix <-
   function(data,
            x = NULL,
            y = NULL,
