@@ -311,6 +311,13 @@
       }
       
     }
+
+    if (apa) {
+      matrix = apply(matrix, 2, function(x)
+        sub('^(-)?0[.]', '\\1.', x)) %>%
+        data.frame()
+    }
+    
     #add in describe column.
     if (!identical(describe, F)) {
       if (identical(describe, T)) {
@@ -327,12 +334,6 @@
           unlist()
       }
       
-    }
-    
-    if (apa) {
-      matrix = apply(matrix, 2, function(x)
-        sub('^(-)?0[.]', '\\1.', x)) %>%
-        data.frame()
     }
     
     
