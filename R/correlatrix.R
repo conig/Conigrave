@@ -31,7 +31,7 @@
 
 #TODO add n.matrix to getcor for partial correlations
 
-correlatrix =
+ctrx <- correlatrix <-
         function(data,
                  x = NULL,
                  y = NULL,
@@ -77,6 +77,9 @@ correlatrix =
                                         }
 
                                 } else{
+                                  x = make.names(x) #get cor requires conversion to data.frame, hence x and y are run through make.names
+                                  y = make.names(y)
+                                  
                                         #if is not imputation list
                                         if (length(partial) == 0) {
                                                 #if not partial
@@ -177,8 +180,10 @@ correlatrix =
 
                 warn = c()
                 for (r in seq_along(y)) {
+                  #print(paste0("r = ",r))
                         #for every column
                         for (c in seq_along(x)) {
+                          #print(paste0("c = ",c))
                                 #and every row
 
                                 matrix[r, c] = tryCatch({
@@ -247,7 +252,7 @@ correlatrix =
                         if (triangle != "both") {
                                 #if triangle both is selected
                                 names(matrix) = 1:length(y) #if symmetrical get rid of col names
-                                rownames(matrix) = paste(1:length(x), ".", x, sep =
+                                rownames(matrix) = paste(1:length(x), ". ", x, sep =
                                                                  "") #put numbers in front of row.names
                         }
                 } else{
@@ -310,4 +315,4 @@ correlatrix =
 
                 return(matrix)
         }
-ctrx = correlatrix
+
