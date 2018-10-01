@@ -332,7 +332,7 @@
             sd(x, na.rm = TRUE)
         )
       }
-      if(!class(data) %in% c("imputationList")){
+      if(!c("imputationList") %in% class(data)){
       data = data.frame(data)
       y = make.names(y)
       }
