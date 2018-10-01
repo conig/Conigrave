@@ -332,17 +332,22 @@
             sd(x, na.rm = TRUE)
         )
       }
-      
-      df = data.frame(data)
+      if(!class(data) %in% c("imputationList")){
+      data = data.frame(data)
       y = make.names(y)
-      for (i in seq_along(describe)) {
-        matrix[[names(describe)[i]]] = lapply(y, function(x)
-          describe[[i]](df[, x]) %>% round(round)) %>%
-          unlist()
       }
+      for (i in seq_along(describe)) {
+        matrix[[names(describe)[i]]] = lapply(y, function(x){
+        paste0("with(data, describe[[i]]","(",x,"))") %>% 
+          parse(text = .) %>% 
+          eval %>% 
+          unlist %>% 
+          mean(na.rm=T) %>% 
+          round(round)
+      }) %>% unlist
       
     }
-    
+    }
     
     return(matrix)
   }
