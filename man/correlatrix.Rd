@@ -5,9 +5,10 @@
 \alias{ctrx}
 \title{Correlatrix}
 \usage{
-correlatrix(data, x = NULL, y = NULL, triangle = "both", round = 3,
+correlatrix(data, x = NULL, y = NULL, triangle = "both", round = 2,
   method = "pearson", n.matrix = F, abbreviate = 100,
-  stars = c(0.05, 0.01, 0.001), partial = c(), ...)
+  stars = c(0.05, 0.01, 0.001), partial = c(), describe = F,
+  apa = F, ...)
 }
 \arguments{
 \item{data}{a data.frame or imputationList.}
@@ -30,6 +31,10 @@ correlatrix(data, x = NULL, y = NULL, triangle = "both", round = 3,
 
 \item{partial}{a vector of colnames. If supplied the function will output a matrix of partial correlations. All effects will be controlled for by the variables in this vector.}
 
+\item{describe}{a list of functions with names or a logical. If functions are supplied to describe, a new column will be appended to the final data.frame for each argument in the list. If TRUE is supplied, means and standard deviation is appended with na.rm = T.}
+
+\item{apa}{a logical. If TRUE, leading zeros are removed.}
+
 \item{...}{the argument 'var.names' from previous versions has been deprecated, please use x instead.}
 }
 \value{
@@ -45,5 +50,6 @@ mtcars \%>\%
 correlatrix(x = c("mpg","cyl","disp")
 ,y = c("wt","drat"),
 round = 2,
-stars = c(0.05))
+stars = c(0.05),
+describe = list("mean" = function(x) mean(x,na.rm=TRUE)))
 }
