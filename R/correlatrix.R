@@ -228,6 +228,13 @@
     if (identical(x, y)) {
       #only allow triangle settings if x == y
       
+        if (triangle != "both") {
+          #if triangle both is selected
+          names(matrix) = 1:length(y) #if symmetrical get rid of col names
+          rownames(matrix) = paste(1:length(x), ". ", x, sep =
+                                     "") #put numbers in front of row.names
+        }
+      
       if (triangle == "upper") {
         #if triangle upper is selected
         for (c in seq_along(y)) {
@@ -240,7 +247,7 @@
           }
           
         }
-        
+        matrix = matrix[,-1]
       }
       
       if (triangle == "lower") {
@@ -254,15 +261,10 @@
           }
           
         }
-        
+        matrix = matrix[,-(length(x))]
       }
       
-      if (triangle != "both") {
-        #if triangle both is selected
-        names(matrix) = 1:length(y) #if symmetrical get rid of col names
-        rownames(matrix) = paste(1:length(x), ". ", x, sep =
-                                   "") #put numbers in front of row.names
-      }
+     
     } else{
       if (triangle != "both") {
         warning("triangle settings only work when x is identical to y",
