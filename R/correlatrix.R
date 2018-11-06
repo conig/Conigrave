@@ -13,7 +13,7 @@
 #' @param stars a numeric vector. For each numeral, a star will be assigned which indicates that the p-value for a given correlation was at, or smaller than, that level. The default is 0.05, 0.01 and 0.001.
 #' @param partial a vector of colnames. If supplied the function will output a matrix of partial correlations. All effects will be controlled for by the variables in this vector.
 #' @param describe a list of functions with names or a logical. If functions are supplied to describe, a new column will be appended to the final data.frame for each argument in the list. If TRUE is supplied, means and standard deviation is appended with na.rm = T.
-#' @param apa a logical. If TRUE, leading zeros are removed.
+#' @param leading.zero a logical. If FALSE, leading zeros are removed.
 #' @param ... the argument 'var.names' from previous versions has been deprecated, please use x instead.
 #' @examples correlatrix(mtcars[,1:5])
 #' library(magrittr)
@@ -33,8 +33,8 @@
 #' @return A data.frame containing a correlation matrix.
 
 #TODO add n.matrix to getcor for partial correlations
-
- ctrx <- correlatrix <-
+ 
+ctrx =
   function(data,
            x = NULL,
            y = NULL,
@@ -46,9 +46,12 @@
            stars = c(0.05, 0.01, 0.001),
            partial = c(),
            describe = F,
-           apa = F,
+           leading.zero = T,
            ...) {
+ 
+
     #check args
+    
     if (!class(describe) %in% c("list", "logical")) {
       stop(
         "describe must be supplied a list of functions (with names), or a logical e.g. 'TRUE'",
@@ -60,15 +63,15 @@
       stop("describe must be given a list with at least one function in it.",
            call. = F)
     }
-    if (class(apa) != "logical") {
-      stop("apa must be supplied a logical", call. = F)
+    if (class(leading.zero) != "logical") {
+      stop("leading.zero must be supplied a logical", call. = F)
     }
     
     
     specify_decimal <-
       function(x, k)
         format(round(x, k), nsmall = k)
-    
+    .<-NULL #define global variables
     getCor = function(data,
                       x,
                       y,
@@ -314,7 +317,7 @@
       
     }
 
-    if (apa) {
+    if (!leading.zero) {
       rownames = rownames(matrix)
       colnames = colnames(matrix)
       matrix = apply(matrix, 2, function(x)
@@ -354,3 +357,4 @@
     return(matrix)
   }
 
+correlatrix <- ctrx

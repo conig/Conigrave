@@ -8,7 +8,7 @@
 ctrx(data, x = NULL, y = NULL, triangle = "both", round = 2,
   method = "pearson", n.matrix = F, abbreviate = 100,
   stars = c(0.05, 0.01, 0.001), partial = c(), describe = F,
-  apa = F, ...)
+  leading.zero = T, ...)
 }
 \arguments{
 \item{data}{a data.frame or imputationList.}
@@ -33,7 +33,7 @@ ctrx(data, x = NULL, y = NULL, triangle = "both", round = 2,
 
 \item{describe}{a list of functions with names or a logical. If functions are supplied to describe, a new column will be appended to the final data.frame for each argument in the list. If TRUE is supplied, means and standard deviation is appended with na.rm = T.}
 
-\item{apa}{a logical. If TRUE, leading zeros are removed.}
+\item{leading.zero}{a logical. If FALSE, leading zeros are removed.}
 
 \item{...}{the argument 'var.names' from previous versions has been deprecated, please use x instead.}
 }

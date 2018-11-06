@@ -11,7 +11,7 @@ find_similar(x, y, percent = 50)
 
 \item{y}{a vector of strings. Strings will be returned from y which are similar to those in x}
 
-\item{percent}{a numeric. Strings in y will be returned if they are at least this percent similar. Defaults to 10\%.}
+\item{percent}{a numeric. Strings in y will be returned if they are at least this percent similar. Defaults to 50\%.}
 }
 \value{
 a vector containing strings from y, which are similar to those in x.
