@@ -17,11 +17,10 @@
 #' @param show.points logical to determine whether or not to include points.
 #' @param save logical as to whether or not to save the plot.
 #' @param path string containing path of where to save plot. Defaults to working directory.
-
 #' @examples carsdata<-mtcars
 #' int.plot(carsdata,"mpg","disp","cyl", y.lim = c(-2.5,2.5))
 #' int.plot(carsdata,"mpg","disp", c("cyl","am"), y.lim = c(-5.0,2.0))
-#' @export
+#' @export int.plot
 #' @import ggplot2
 #' @importFrom mitools MIcombine imputationList
 #' @importFrom stats cor.test lm na.omit

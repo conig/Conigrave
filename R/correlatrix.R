@@ -1,6 +1,6 @@
 #' Correlatrix
 #'
-#' Takes in a data.frame or imputationList, a vector of variable names and produces a correlation matrix with customizable significance stars.
+#' Takes in a dat#'a.frame or imputationList, a vector of variable names and produces a correlation matrix with customizable significance stars.
 #' @aliases correlatrix
 #' @param data a data.frame or imputationList.
 #' @param x a vector of variable names to correlate (optional).
@@ -18,7 +18,7 @@
 #' @examples correlatrix(mtcars[,1:5])
 #' library(magrittr)
 #' mtcars %>%
-#' correlatrix(x = c("mpg","cyl","disp")
+#' ctrx(x = c("mpg","cyl","disp")
 #' ,y = c("wt","drat"),
 #' round = 2,
 #' stars = c(0.05),

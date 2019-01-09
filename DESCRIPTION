@@ -1,7 +1,7 @@
 Package: Conigrave
 Type: Package
 Title: Flexible Tools for Multiple Imputation
-Version: 0.4.2
+Version: 0.4.3
 Date: 2018-11-06
 Author: James Conigrave
 Maintainer: James Conigrave <james.conigrave@gmail.com>
@@ -18,4 +18,4 @@ Imports:
     ppcor(>= 1.1),
     mitools(>= 2.3),
     miceadds(>= 1.8-0)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

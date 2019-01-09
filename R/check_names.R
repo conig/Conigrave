@@ -17,7 +17,7 @@ check_names = function(x, data) {
     name_data = data
   }
   
-  if(!class(data) == "character"){
+  if(!"character" %in% class(data)){
     name_data = names(name_data)
   } else{
     name_data = data

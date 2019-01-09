@@ -41,13 +41,13 @@ ctrx(data, x = NULL, y = NULL, triangle = "both", round = 2,
 A data.frame containing a correlation matrix.
 }
 \description{
-Takes in a data.frame or imputationList, a vector of variable names and produces a correlation matrix with customizable significance stars.
+Takes in a dat#'a.frame or imputationList, a vector of variable names and produces a correlation matrix with customizable significance stars.
 }
 \examples{
 correlatrix(mtcars[,1:5])
 library(magrittr)
 mtcars \%>\%
-correlatrix(x = c("mpg","cyl","disp")
+ctrx(x = c("mpg","cyl","disp")
 ,y = c("wt","drat"),
 round = 2,
 stars = c(0.05),
