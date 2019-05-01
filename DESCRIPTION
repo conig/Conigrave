@@ -1,7 +1,7 @@
 Package: Conigrave
 Type: Package
 Title: Flexible Tools for Multiple Imputation
-Version: 0.4.3
+Version: 0.4.4
 Date: 2018-11-06
 Author: James Conigrave
 Maintainer: James Conigrave <james.conigrave@gmail.com>

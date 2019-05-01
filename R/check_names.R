@@ -9,7 +9,6 @@
 #' @importFrom magrittr %>%
 
 check_names = function(x, data) {
-  #this function checks to see if names are missing
   names = unique(x)
   if (any(c("amelia", "imputationList") %in% class(data))) {
     name_data = data$imputations[[1]]
