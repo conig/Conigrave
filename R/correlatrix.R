@@ -16,7 +16,7 @@
 #' @param leading.zero a logical. If FALSE, leading zeros are removed.
 #' @param ... the argument 'var.names' from previous versions has been deprecated, please use x instead.
 #' @examples correlatrix(mtcars[,1:5])
-#' library(magrittr)
+#' library(dplyr)
 #' mtcars %>%
 #' ctrx(x = c("mpg","cyl","disp")
 #' ,y = c("wt","drat"),
@@ -27,7 +27,7 @@
 #' @export ctrx
 #' @importFrom stats na.omit cor.test
 #' @importFrom miceadds micombine.cor
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @importFrom mitools imputationList
 #' @importFrom ppcor pcor.test
 #' @return A data.frame containing a correlation matrix.

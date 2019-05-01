@@ -45,7 +45,7 @@ Takes in a dat#'a.frame or imputationList, a vector of variable names and produc
 }
 \examples{
 correlatrix(mtcars[,1:5])
-library(magrittr)
+library(dplyr)
 mtcars \%>\%
 ctrx(x = c("mpg","cyl","disp")
 ,y = c("wt","drat"),
