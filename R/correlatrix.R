@@ -277,7 +277,7 @@ ctrx =
     
     
     if (n.matrix == T) {
-      message("matrix of n returned.")
+
     } else{
       lapply(seq_along(stars), function(s) {
         paste0("p < ",

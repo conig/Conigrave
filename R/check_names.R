@@ -6,7 +6,7 @@
 #' @return check_names will trigger an error if the supplied vector of names were not found in the supplied object. It will also predict which names the user was trying to spell.
 #' @export check_names
 #' @importFrom stringdist stringdist
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 
 check_names = function(x, data) {
   names = unique(x)
