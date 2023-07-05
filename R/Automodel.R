@@ -11,7 +11,7 @@
 #' @param include a vector of colnames which must be included as predictors in each model.
 #' @param exclude a vector of colnames to be removed from the genepool.
 #' @param set.seed a numeric. If this argument is provided, the algorithm will use the given seed in order to present reproducible results.
-#' @examples autoModel(mtcars,"mpg",set.seed = 2)
+#' @examples autoModel(mtcars,"mpg",set.seed = 10, children = 3)
 #' @export autoModel
 #' @importFrom mitools MIcombine imputationList
 #' @importFrom dplyr %>%
@@ -89,18 +89,21 @@ autoModel <- function(data,
                     data = data)
         #stop if columns are non-numeric
         test_class = c(outcome, genepool)
+        
+        is_num_or_factor <- function(x) is(x, "numeric") | is(x, "factor")
+        
         if (imps == T) {
                 classes_non_num = lapply(test_class, function(x)
-                        is.numeric(data$imputations[[1]][, x])) %>% unlist
+                  is_num_or_factor(data$imputations[[1]][, x])) %>% unlist
         } else{
                 classes_non_num = lapply(test_class, function(x)
-                        is.numeric(data[, x])) %>% unlist
+                  is_num_or_factor(data[, x])) %>% unlist
         }
 
         if (any(!classes_non_num)) {
                 bad_classes = test_class[!classes_non_num]
                 stop(paste0(
-                        "The following variables are not numeric: ",
+                        "The following variables are not numeric or a factor: ",
                         paste(bad_classes, collapse = ", ")
                 ),
                 call. = F)
