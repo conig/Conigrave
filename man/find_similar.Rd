@@ -23,9 +23,10 @@ Find strings in \code{y} that are at least \code{percent} similar to
 any string in \code{x}.
 }
 \details{
-Similarity is 100 times one minus the optimal string alignment
-  distance divided by the longer string length. Two empty strings match
-  exactly. Missing strings are ignored.
+Similarity is 100 times one minus the Levenshtein edit distance
+  divided by the longer string length. Swapping two adjacent letters
+  counts as two edits. Two empty strings match exactly. Missing strings
+  are ignored.
 }
 \examples{
 find_similar("colour", c("color", "colour", "shape"), percent = 80)

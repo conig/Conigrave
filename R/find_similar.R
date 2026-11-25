@@ -7,9 +7,10 @@
 #' @param y Character vector of possible matches.
 #' @param percent Minimum similarity, from 0 to 100. Use 100 for exact
 #'   matches. The default is 50.
-#' @details Similarity is 100 times one minus the optimal string alignment
-#'   distance divided by the longer string length. Two empty strings match
-#'   exactly. Missing strings are ignored.
+#' @details Similarity is 100 times one minus the Levenshtein edit distance
+#'   divided by the longer string length. Swapping two adjacent letters
+#'   counts as two edits. Two empty strings match exactly. Missing strings
+#'   are ignored.
 #' @return A sorted character vector of unique matches, or \code{character(0)}
 #'   if none match.
 #' @examples
@@ -27,7 +28,7 @@ find_similar <- function(x, y, percent = 50) {
   for (query in x) {
     idx <- which(!matched)
     if (!length(idx)) break
-    distance <- stringdist::stringdist(query, y[idx], method = "osa")
+    distance <- utils::adist(query, y[idx])[1L, ]
     matched[idx] <- 100 * distance <= (100 - percent) * pmax(nchar(query), width[idx])
   }
   sort(y[matched])
