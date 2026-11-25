@@ -16,7 +16,8 @@
   interaction grids use the same levels as the final fit.
 * Set `family` to fit a GLM, or provide a custom `fit` function and a
   higher-is-better `score`. Optional independent `validation` data score the
-  winning model without participating in selection.
+  winning model without participating in selection. An invalid
+  `validation_score` callback is rejected before fitting.
 * The search skips previously evaluated candidates, reuses numeric interaction
   columns, and accepts a `max_evaluations` budget. All candidates use the same
   complete training rows. Bootstrap stability uses the same row indices across

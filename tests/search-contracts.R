@@ -13,6 +13,14 @@ stopifnot(!any(grepl("strongest", a$result_history$call)),
           identical(coef(a$fits[[1]]), coef(b$fits[[1]])),
           !isTRUE(all.equal(a$validation_score, b$validation_score)))
 
+# Reject a malformed callback rather than attempting to call it after fitting.
+validate <- function(callback) autoModel(d, "y", "x", samples = 0,
+                                         validation = d, validation_score = callback)
+err <- tryCatch(validate(42), error = conditionMessage)
+if (!identical(err, "validation_score must be a function or NULL."))
+  stop("Unexpected validation_score error: ", err)
+stopifnot(identical(validate(function(fitted_model, newdata) 0.5)$validation_score, 0.5))
+
 # Observe actual bootstrap rows at the custom fitter boundary, rather than
 # merely checking that the reported stability statistic is finite.
 draws <- list()
