@@ -62,3 +62,14 @@ m <- autoModel(cars, "mpg", c("wt", "group"), include = "wt,group", samples = 0,
 g <- int.plot(m, predictor = "wt", moderator = "group")$predictions
 stopifnot(identical(levels(g$group), c("4", "6", "8")),
           equal(g$.prediction, predict(lm(mpg ~ wt * group, cars), g)))
+
+# The legacy save arguments must not make int.plot() write a file.
+local({
+  output <- tempfile("int-plot-")
+  stopifnot(dir.create(output))
+  on.exit(unlink(output, recursive = TRUE))
+  result <- try(int.plot(mtcars, "mpg", "wt", "hp", save = TRUE, path = output),
+                silent = TRUE)
+  stopifnot(length(list.files(output, all.files = TRUE, no.. = TRUE)) == 0L,
+            inherits(result, "try-error"))
+})

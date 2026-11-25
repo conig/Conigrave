@@ -19,8 +19,6 @@ int.plot(
   legend.name = "auto",
   colour = "ghostwhite",
   show.points = FALSE,
-  save = FALSE,
-  path = getwd(),
   newdata = NULL
 )
 }
@@ -59,10 +57,6 @@ which to draw lines for numeric moderators when no grid is supplied.}
 \item{show.points}{If \code{TRUE}, add observed points from the first
 completed data set. Only supported when supplying data rather than a fit.}
 
-\item{save}{If \code{TRUE}, save the returned plot as a PNG.}
-
-\item{path}{Directory in which to save the plot when \code{save} is true.}
-
 \item{newdata}{Optional prediction grid for an existing fit. Supply
 one row per prediction and all required predictors on their input scales.
 A grid is useful for transformed formulas or custom covariate values.}
@@ -94,6 +88,9 @@ data set, and plotted predictions are averaged across fits.
 
 An existing model is used as-is. The plot does not add an interaction term
 or test whether an interaction is present.
+
+To save a figure, pass the returned plot to
+\code{ggplot2::ggsave("interaction.png", plot = result$plot)}.
 }
 \examples{
 int.plot(mtcars, "mpg", "disp", "cyl", y.lim = c(-2.5, 2.5))$plot

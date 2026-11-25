@@ -46,7 +46,7 @@
   counts for distinct pairs.
 * `int.plot()` accepts tibbles and can plot predictions from a fitted
   `autoModel`, `lm`, or `glm` without refitting. Lines average predictions
-  across imputations. Saving writes the returned plot.
+  across imputations.
 * `get.numeric()` preserves a single numeric column as a data frame and
   checks that the selected columns agree across imputations. `check_names()`
   now checks each completed data set, not just the first.
@@ -62,6 +62,8 @@
   arbitrary factor codes.
 * `find_similar()` interprets `percent` as a minimum similarity: 100 means
   exact matches, and higher thresholds cannot add matches.
+* `int.plot()` no longer accepts `save` or `path`. To save a figure, call
+  `ggplot2::ggsave("interaction.png", plot = result$plot)` on its result.
 
 ## Documentation
 

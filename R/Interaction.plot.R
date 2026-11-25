@@ -24,8 +24,6 @@
 #' @param colour High end of the colour gradient for observed points.
 #' @param show.points If \code{TRUE}, add observed points from the first
 #'   completed data set. Only supported when supplying data rather than a fit.
-#' @param save If \code{TRUE}, save the returned plot as a PNG.
-#' @param path Directory in which to save the plot when \code{save} is true.
 #' @param newdata Optional prediction grid for an existing fit. Supply
 #'   one row per prediction and all required predictors on their input scales.
 #'   A grid is useful for transformed formulas or custom covariate values.
@@ -48,6 +46,9 @@
 #' An existing model is used as-is. The plot does not add an interaction term
 #' or test whether an interaction is present.
 #'
+#' To save a figure, pass the returned plot to
+#' \code{ggplot2::ggsave("interaction.png", plot = result$plot)}.
+#'
 #' @return A list with \code{plot} (a ggplot) and \code{summary} (the model
 #'   summary). When supplying a fit, \code{predictions} contains the
 #'   plotting grid with an added \code{.prediction} column.
@@ -62,7 +63,7 @@
 int.plot <- function(data, outcome, predictor, moderator, y.lim = c(-1, 1),
                      x.lim = c(-1, 1), x.lab = "auto", y.lab = "auto", title = "auto",
                      title.size = 15, SDs = 1, legend.name = "auto", colour = "ghostwhite",
-                     show.points = FALSE, save = FALSE, path = getwd(), newdata = NULL) {
+                     show.points = FALSE, newdata = NULL) {
   from_fit <- inherits(data, c("autoModel", "lm"))
   if (from_fit && missing(outcome))
     outcome <- if (inherits(data, "autoModel")) data$outcome else all.vars(stats::formula(data)[[2L]])[1L]
@@ -117,11 +118,6 @@ int.plot <- function(data, outcome, predictor, moderator, y.lim = c(-1, 1),
   if (nlevels(lines$group) > 6L)
     p <- p + ggplot2::scale_linetype_manual(values = rep("solid", nlevels(lines$group)), guide = "none") +
       ggplot2::aes(colour = group) + ggplot2::labs(colour = legend.name)
-  if (save) {
-    if (path == "desktop") path <- file.path(path.expand("~"), "Desktop")
-    filename <- paste0(outcome, "~", predictor, "x", moderator[1], ".png")
-    ggplot2::ggsave(filename, plot = p, path = path, height = 11, width = 13.5, units = "cm", dpi = 600)
-  }
   result <- list(plot = p, summary = model_summary)
   if (from_fit) result$predictions <- fitted_grid$grid
   result
