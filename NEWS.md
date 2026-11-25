@@ -29,8 +29,8 @@
 
 ## Dependencies
 
-* Model histories still return tibbles. dplyr and stringr are no longer
-  direct dependencies.
+* Model histories still return tibbles. dplyr, stringr, and stringdist are
+  no longer direct dependencies.
   The correlation backends miceadds (pooled estimates) and ppcor
   (partial estimates) are optional. Count-only tables need neither.
 
@@ -46,7 +46,7 @@
   counts for distinct pairs.
 * `int.plot()` accepts tibbles and can plot predictions from a fitted
   `autoModel`, `lm`, or `glm` without refitting. Lines average predictions
-  across imputations. Saving writes the returned plot.
+  across imputations.
 * `get.numeric()` preserves a single numeric column as a data frame and
   checks that the selected columns agree across imputations. `check_names()`
   now checks each completed data set, not just the first.
@@ -61,7 +61,11 @@
   look numeric. `ctrx()` rejects non-numeric columns rather than correlating
   arbitrary factor codes.
 * `find_similar()` interprets `percent` as a minimum similarity: 100 means
-  exact matches, and higher thresholds cannot add matches.
+  exact matches, and higher thresholds cannot add matches. It and
+  `check_names()` use Levenshtein edit distance, so swapping adjacent letters
+  now counts as two edits instead of one.
+* `int.plot()` no longer accepts `save` or `path`. To save a figure, call
+  `ggplot2::ggsave("interaction.png", plot = result$plot)` on its result.
 
 ## Documentation
 

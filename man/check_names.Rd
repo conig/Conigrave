@@ -18,7 +18,8 @@ Invisibly returns \code{NULL} if all names exist. Otherwise,
 }
 \description{
 Check a data frame, each completed data set, or a supplied vector of
-available names. Suggest similar names when a requested name is missing.
+available names. Suggest similar names by Levenshtein edit distance
+when a requested name is missing.
 }
 \examples{
 check_names(c("mpg", "wt"), mtcars)
