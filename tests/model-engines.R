@@ -60,3 +60,20 @@ m <- autoModel(bin, "event", "wt", include = "wt", family = binomial(),
 score <- 1 - ref$deviance / ref$null.deviance
 stopifnot(all.equal(m$history$score, score), all.equal(m$validation_score, score),
           all.equal(unname(predict(m, bin)), unname(fitted(ref))))
+
+# Both fits name their coefficients gC and gD, but those contrasts cannot
+# be pooled if one imputation uses A as the baseline and the other uses B.
+factor_frame <- function(baseline) data.frame(
+  y = c(1:4, 8:11, 12:15),
+  g = factor(rep(c(baseline, "C", "D"), each = 4), levels = LETTERS[1:4])
+)
+fit_groups <- function(a, b) autoModel(
+  mitools::imputationList(list(a, b)), "y", "g", include = "g",
+  samples = 0, max_evaluations = 1
+)
+a <- factor_frame("A")
+err <- tryCatch({ fit_groups(a, factor_frame("B")); NULL }, error = conditionMessage)
+stopifnot(!is.null(err), grepl("levels", err), grepl("\\bg\\b", err))
+
+# A level absent from all imputations leaves the contrasts comparable.
+stopifnot(identical(names(coef(fit_groups(a, a))), c("(Intercept)", "gC", "gD")))

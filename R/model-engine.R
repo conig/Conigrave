@@ -26,8 +26,8 @@ model_data <- function(frames, cols, outcome, linear, validation) {
         if (linear && col == outcome) stop("Linear regression requires a numeric outcome.")
         # Match the model frame used by lm/glm, including its reference level.
         if (any(tabulate(z, nbins = nlevels(z)) == 0L)) d[[col]] <- droplevels(z)
-        if (i > 1L && col == outcome && !identical(levels(d[[col]]), levels(frames[[1]][[col]])))
-          stop("Observed response levels differ between imputations.")
+        if (i > 1L && !identical(levels(d[[col]]), levels(frames[[1]][[col]])))
+          stop("Observed factor levels differ between imputations: ", col)
       } else if (is.numeric(z) && is.null(dim(z)) && is.numeric(ref)) {
         if (!all(is.finite(z))) stop("Non-finite training values: ", col)
         if (linear || col != outcome) {
