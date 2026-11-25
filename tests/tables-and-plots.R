@@ -22,9 +22,23 @@ mi <- mitools::imputationList(list(d, mtcars))
 stopifnot(is.na(ctrx(mi, "wt", "mpg", n.matrix = TRUE)$wt))
 stopifnot(inherits(try(ctrx(mitools::imputationList(list(mtcars, mtcars["wt"])),
                             "wt", "mpg"), silent = TRUE), "try-error"))
-# The second imputation has a different relationship.
+# The second imputation has a different relationship. Lines must reflect both.
 frames <- list(mtcars, transform(mtcars, mpg = mpg + 0.01 * cyl * disp))
 mi <- mitools::imputationList(frames)
+for (mods in list("cyl", c("cyl", "am"))) {
+  p <- int.plot(mi, "mpg", "disp", mods)
+  lines <- p$plot$layers[[1]]$data
+  stopifnot(nrow(lines) == if (length(mods) == 1L) 6L else 8L)
+  reference <- lapply(frames, function(d) lm(reformulate(paste(c("disp", mods), collapse = "*"), "mpg"),
+                                            data = as.data.frame(scale(d))))
+  settings <- if (length(mods) == 1L) data.frame(cyl = -1:1) else
+    expand.grid(cyl = c(-1, 1), am = c(-1, 1))
+  grid <- settings[rep(seq_len(nrow(settings)), each = 2L), , drop = FALSE]
+  grid$disp <- rep(c(-1, 1), nrow(settings))
+  expected <- rowMeans(vapply(reference, predict, numeric(nrow(grid)), newdata = grid))
+  stopifnot(all.equal(unname(lines$yvalue), unname(expected)))
+}
+
 if (requireNamespace("miceadds", quietly = TRUE)) {
   long <- ctrx(mi, c("mpg", "wt", "disp"), output = "long")
   stopifnot(nrow(long) == 3L, all(long$x != long$y), all(long$n == 32L))
